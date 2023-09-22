@@ -1,6 +1,10 @@
-export class Extras {
+import { Classy } from "./classy.js";
+
+export class Extras extends Classy {
 	constructor() {
-		this.function = {};
+		super(...arguments);
+		this.functions = {};
+		this.indexs = [];
 	}
 	_function(name, func) {
 		if (typeof name !== "string") {
@@ -9,15 +13,15 @@ export class Extras {
 		if (typeof func !== "function") {
 			throw new TypeError("Function must be a function");
 		}
-		this.function[name] = func;
+		this.functions[name] = func;
 	}
-	call(name, ...args) {
+	async call(name, m, opts) {
 		if (typeof name !== "string") {
 			throw new TypeError("Name must be a string");
 		}
-		if (!this.function[name]) {
+		if (!this.functions[name]) {
 			throw new TypeError("Function does not exist");
 		}
-		return this.function[name](...args);
+		return this.functions[name](m, opts);
 	}
 }
