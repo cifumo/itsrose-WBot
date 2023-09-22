@@ -32,6 +32,16 @@ npm start
 2. Edit `.env` and fill in the values
 3. Edit `config.js` and fill in the values
 4. Enjoy
+or 
+1. Create a file named `.env`
+2. Edit `.env` and fill in the values like this:
+    ```env
+    MONGODB_URI=mongodb_uri
+    OPENAI_API_KEY=openai_apikey
+    ```
+3. Edit `config.js` and fill in the values
+4. Enjoy
+
 
 ## Support me by donating
 - [PayPal](https://paypal.me/xct007)
