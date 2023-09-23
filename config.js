@@ -7,6 +7,6 @@ export default {
 		real_time: true,
 		timeZone: "Asia/Jakarta",
 	},
-	allow_group: false,
+	allow_group: true,
 	allow_private: true,
 };

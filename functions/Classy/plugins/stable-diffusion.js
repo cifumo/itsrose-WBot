@@ -58,7 +58,9 @@ export default function stable_diffusion() {
 			if (!status) {
 				return {
 					type: "text",
-					message,
+					response: {
+						message,
+					},
 				};
 			}
 			const url = result.images[0];

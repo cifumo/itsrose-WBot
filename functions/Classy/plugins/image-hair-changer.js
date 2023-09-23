@@ -1,64 +1,50 @@
 import { Api } from "../API/index.js";
 
-export default function image_convert() {
+export default function image_hair_changer() {
 	return {
-		name: "image_convert",
-		description: "Convert image to another style",
+		name: "image_hair_changer",
+		description: "Change hair style of image",
 		parameters: {
 			type: "object",
 			properties: {
-				style: {
+				hair_id: {
 					type: "string",
-					description: "The style to convert image in",
-					default: "anime",
+					description: "The hair id to change to",
+					default: "layered_1",
 					enum: [
-						"color_line",
-						"fresh",
-						"makima",
-						"cat_ears",
-						"full_bloom",
-						"angel",
-						"gracefull",
-						"cold",
-						"snow_fall",
-						"manga",
-						"charming",
-						"stipple",
-						"cg",
-						"idol",
-						"comic_world",
-						"princess",
-						"anime25d",
-						"realistic",
-						"anime",
-						"comic",
-						"manhwa",
-						"manhwa_female",
-						"manhwa_male",
-						"jewelry",
-						"jewelry_sky",
-						"basketball",
-						"summer",
-						"cute_child",
-						"makeup_sunny",
-						"anime_idol",
-						"azure_sky",
-						"today",
-						"majestic",
-						"ftlove",
-						"loveft",
-						"samyang",
-						"student",
-						"baby",
-						"anime_1",
-						"anime_2",
-						"anime_3",
-						"anime_4",
-						"drawing",
+						"layered_1",
+						"airy_bangs",
+						"fishtail",
+						"blunt_bangs",
+						"school_girl",
+						"ripples_2",
+						"long_curtains_1",
+						"cockhorse",
+						"side_split_1",
+						"straight_hair_1",
+						"mermaid",
+						"egg_roll",
+						"curly_hair",
+						"layered_2",
+						"long_curtains_2",
+						"barbie",
+						"airy_long",
+						"side_fringe",
+						"straight_hair_2",
+						"french",
+						"ripples_1",
+						"long_curtains_3",
+						"peach-shaped",
+						"slicked-back",
+						"comma_hair",
+						"coside_split_2de",
+						"natural",
+						"k-style",
+						"shor_curls",
 					],
 				},
 			},
-			required: ["style"],
+			required: ["hair_id"],
 		},
 		execute: async function (m, params) {
 			const q = m.quoted ? m.quoted : m;
@@ -71,7 +57,7 @@ export default function image_convert() {
 					},
 				};
 			}
-			const { style } = params;
+			const { hair_id } = params;
 			const imageBuffer = await q.download();
 			const formData = new FormData();
 			const blob = new Blob([imageBuffer], { type: "image/jpg" });
@@ -80,7 +66,7 @@ export default function image_convert() {
 				url: "/image/differentMe",
 				method: "POST",
 				params: {
-					style,
+					hair_id,
 					json: true,
 				},
 				data: formData,
