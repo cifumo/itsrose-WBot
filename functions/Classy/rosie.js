@@ -1,8 +1,11 @@
 import { Lisa } from "./lisa.js";
 
 export class Rosie extends Lisa {
-	constructor() {
+	constructor(plugin_loader, database_loader) {
 		super(...arguments);
+		this._plugins = plugin_loader;
+		this._database = database_loader;
+		this.plugin_call = false;
 	}
 	async create_request(options) {
 		return await this.openai.chat.completions
@@ -51,8 +54,11 @@ export class Rosie extends Lisa {
 			this.finish_response(m, response, { type: "text" });
 		}
 	}
-	async Danil_elist(m, sock) {
-		if (this._onProcess[m.sender]) {
+	async ai(m, sock) {
+		if (!this.plugins_loaded || !this.function_loaded || !this.database_loaded) {
+			return;
+		}
+		if (this._onProcess[m.sender] || this.plugin_call) {
 			return;
 		}
 		this.add(m);

@@ -1,7 +1,9 @@
 import "dotenv/config";
 console.log(process.env);
-import { loadDatabase } from "./lib/database.js";
 import startsocks from "./lib/connection.js";
+import { MessageHandler, rosie } from "./lib/message.js";
 
-await loadDatabase();
-startsocks();
+rosie.load_functions();
+rosie.load_plugins();
+rosie.load_database();
+startsocks(MessageHandler);

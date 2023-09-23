@@ -8,9 +8,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export class Lisa extends Extras {
 	constructor() {
 		super(...arguments);
-		this.plugin_loaded = false;
+		this.function_loaded = false;
+		this.plugins_loaded = false;
 	}
-	async loadPlugins() {
+	async load_functions() {
 		for (const file of fs.readdirSync(path.join(__dirname, "plugins"))) {
 			try {
 				const { default: plugin } = await import(`./plugins/${file}`);
@@ -21,6 +22,16 @@ export class Lisa extends Extras {
 				console.error(`Failed to load plugin ${file}:`, e);
 			}
 		}
-		this.plugin_loaded = true;
+		this.function_loaded = true;
+	}
+	async load_plugins() {
+		this.plugins = await this._plugins();
+		this.plugins_loaded = true;
+		console.debug("Plugins:", Object.keys(this.plugins));
+	}
+	async load_database() {
+		this.database = await this._database();
+		this.database_loaded = true;
+		console.debug("Database Loaded");
 	}
 }

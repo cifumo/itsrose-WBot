@@ -1,11 +1,11 @@
 import { Jammy } from "./jammy.js";
 
 export class Classy extends Jammy {
-	constructor(db) {
+	constructor() {
 		super(...arguments);
 		this._queue = {};
 		this._onProcess = {};
-		this.db = db;
+		this.db = this.database;
 	}
 	name(str) {
 		return { name: str };
