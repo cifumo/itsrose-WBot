@@ -5,7 +5,6 @@ export class Classy extends Jammy {
 		super(...arguments);
 		this._queue = {};
 		this._onProcess = {};
-		// could not test using database, indehemo.
 		this.db = db;
 	}
 	name(str) {
