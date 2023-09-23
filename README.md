@@ -1,5 +1,5 @@
 # itsrose-WBot
-Itsrose is ready to TEST, but not ready to use in production. Just say it `beta` haha.
+Danil Elistzakov's
 
 ## Features
 I assume you know what this bot is for, so I won't explain it here.
