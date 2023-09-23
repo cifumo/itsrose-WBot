@@ -26,14 +26,8 @@ export class Classy extends Jammy {
 	parse_response(response) {
 		return response.choices[0].message;
 	}
-	error_response(
-		m,
-		text = "Sorry, something went wrong. Please try again later."
-	) {
+	error_response(m) {
 		const jid = m.sender;
-		this._queue[jid].options = {
-			text,
-		};
 		this._queue[jid].clear = true;
 	}
 	create_context(m) {

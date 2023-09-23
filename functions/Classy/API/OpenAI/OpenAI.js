@@ -6,7 +6,7 @@ export default class OpenAI {
 			apiKey: process.env.OPENAI_API_KEY,
 		});
 		this.default_options = {
-			model: "gpt-3.5-turbo",
+			model: "gpt-4",
 		};
 	}
 }

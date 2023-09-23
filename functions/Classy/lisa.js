@@ -12,10 +12,14 @@ export class Lisa extends Extras {
 	}
 	async loadPlugins() {
 		for (const file of fs.readdirSync(path.join(__dirname, "plugins"))) {
-			const { default: plugin } = await import(`./plugins/${file}`);
-			const _plugin = await plugin();
-			this.indexs.push({ ..._plugin });
-			this.functions[_plugin.name] = _plugin.execute;
+			try {
+				const { default: plugin } = await import(`./plugins/${file}`);
+				const _plugin = await plugin();
+				this.indexs.push({ ..._plugin });
+				this.functions[_plugin.name] = _plugin.execute;
+			} catch (e) {
+				console.error(`Failed to load plugin ${file}:`, e);
+			}
 		}
 		this.plugin_loaded = true;
 	}

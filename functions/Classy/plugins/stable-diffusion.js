@@ -71,7 +71,7 @@ export default function stable_diffusion() {
 				},
 				response: {
 					content: "Success!",
-					message: "Success generating image from prompt",
+					message: "Image generated successfully!",
 				},
 			};
 		},

@@ -11,7 +11,7 @@ export class Rosie extends Lisa {
 			})
 			.catch((e) => ({ error: true, ...e }));
 	}
-	async call_function(m, context, contexts) {
+	async call_plugin(m, context, contexts) {
 		const { name, arguments: args } = contexts.function_call;
 		let opts;
 		try {
@@ -20,19 +20,19 @@ export class Rosie extends Lisa {
 			opts = {};
 		}
 		const _response = await this.call(name, m, opts).catch((e) => ({
-			error: true,
-			...e,
+			error: e,
 		}));
 		if (_response.error) {
-			return this.error_response(m, "Sorry, something went wrong.");
+			console.error(`Failed to call plugin ${name}:`, _response);
+			return this.error_response(m);
 		}
 		const additional = this.force_string(name, _response.response);
 		context.messages.push(additional);
 		const response = await this.create_request(context);
-		if (response.error) {
-			return this.error_response(m, response?.error?.code);
-		}
 		console.debug("Response:", response);
+		if (response.error) {
+			return this.error_response(m);
+		}
 		this.finish_response(m, response, _response);
 	}
 	async process(m) {
@@ -40,12 +40,13 @@ export class Rosie extends Lisa {
 		if (jid in this._queue) {
 			const context = this.create_context(m);
 			const response = await this.create_request(context);
+			console.debug("Response:", response);
 			if (response.error) {
-				return this.error_response(m, response?.error?.code);
+				return this.error_response(m);
 			}
 			const contexts = this.parse_response(response);
 			if (contexts.function_call) {
-				return this.call_function(m, context, contexts);
+				return this.call_plugin(m, context, contexts);
 			}
 			this.finish_response(m, response, { type: "text" });
 		}
@@ -59,19 +60,21 @@ export class Rosie extends Lisa {
 		if (!(jid in this._queue)) {
 			return;
 		}
+		console.debug("Processing message from:", jid);
 		await this.process(m);
-		console.debug("Sending message to", jid);
-		console.debug("Message", this._queue[jid].options);
-		await sock
-			.sendMessage(
-				m.isGroup ? m.chat : jid,
-				{ ...this._queue[jid].options },
-				{ quoted: m }
-			)
-			.catch(console.error);
 		if (this._queue[jid].clear) {
+			console.debug("Clearing message from:", jid);
 			this.clear(m);
 		} else {
+			console.debug("Sending message to", jid);
+			console.debug("Message", this._queue[jid].options);
+			await sock
+				.sendMessage(
+					m.isGroup ? m.chat : jid,
+					{ ...this._queue[jid].options },
+					{ quoted: m }
+				)
+				.catch(console.error);
 			this.delete(m);
 		}
 	}
