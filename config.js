@@ -9,4 +9,5 @@ export default {
 	},
 	allow_group: true,
 	allow_private: true,
+	ignore_prefix: ["."],
 };
