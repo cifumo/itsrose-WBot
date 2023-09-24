@@ -8,7 +8,6 @@ export default {
 		real_time: true,
 		timeZone: "Asia/Jakarta",
 	},
-	use_plugins: false,
-	use_case: true,
+	use_case: false,
 	prefix: ["."],
 };

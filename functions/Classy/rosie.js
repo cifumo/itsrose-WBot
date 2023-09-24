@@ -1,10 +1,10 @@
 import { Lisa } from "./lisa.js";
 
 export class Rosie extends Lisa {
-	constructor(plugin_loader, database_loader) {
+	constructor(database_loader, plugin_folder) {
 		super(...arguments);
-		this._plugins = plugin_loader;
 		this._database = database_loader;
+		this._plugin_folder = plugin_folder;
 		this.plugin_call = false;
 	}
 	async create_request(options) {
