@@ -8,18 +8,6 @@ Danil Elistzakov's
 - [ ] MongoDB
   - I want to use mongodb to store the data, but idk.
 
-## Configuration
-1. Rename `.env.example` to `.env` or create a file named `.env`
-2. Edit `.env` and fill in the values:
-   ```env
-    MONGODB_URI=mongodb_uri
-    ITSROSE_API_KEY=itsrose_apikey
-    OPENAI_API_KEY=openai_apikey
-    ```
-3. Edit `config.js` and fill in the values.
-4. See more information about MongoDB [here](https://docs.mongodb.com/manual/installation/)
-5. See more information about itsrose API [here](https://itsrose.life/)
-6. See more information about OpenAI API [here](https://beta.openai.com/docs/api-reference/introduction)
 
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/)
@@ -32,10 +20,23 @@ git clone https://github.com/xct007/itsrose-WBot
 ```bash
 npm install
 ```
-5. Run the bot
+## Configuration
+1. Rename `.env.example` to `.env` or create a file named `.env`
+2. Edit `.env` and fill in the values:
+   ```env
+    MONGODB_URI=mongodb_uri
+    ITSROSE_API_KEY=itsrose_apikey
+    OPENAI_API_KEY=openai_apikey
+    ```
+3. Edit `config.js` and fill in the values.
+4. See more information about MongoDB [here](https://docs.mongodb.com/manual/installation/)
+5. See more information about itsrose API [here](https://itsrose.life/)
+6. See more information about OpenAI API [here](https://beta.openai.com/docs/api-reference/introduction)
+7. Run the bot
 ```bash
 npm start
 ```
+
 ## Writing OpenAI plugin
 1. Create a file named `plugin_name.js` in `functions/Classy/plugins` folder
 2. Edit `plugin_name.js` and fill in the values like this:
