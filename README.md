@@ -8,6 +8,19 @@ Danil Elistzakov's
 - [ ] MongoDB
   - I want to use mongodb to store the data, but idk.
 
+## Configuration
+1. Rename `.env.example` to `.env` or create a file named `.env`
+2. Edit `.env` and fill in the values:
+   ```env
+    MONGODB_URI=mongodb_uri
+    ITSROSE_API_KEY=itsrose_apikey
+    OPENAI_API_KEY=openai_apikey
+    ```
+3. Edit `config.js` and fill in the values.
+4. See more information about MongoDB [here](https://docs.mongodb.com/manual/installation/)
+5. See more information about itsrose API [here](https://itsrose.life/)
+6. See more information about OpenAI API [here](https://beta.openai.com/docs/api-reference/introduction)
+
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/)
 2. Install [Git](https://git-scm.com/downloads)
@@ -23,25 +36,6 @@ npm install
 ```bash
 npm start
 ```
-
-## Configuration
-1. Rename `.env.example` to `.env`
-2. Edit `.env` and fill in the values
-3. Edit `config.js` and fill in the values
-4. Enjoy
-
-`or you can do this`
-
-1. Create a file named `.env`
-2. Edit `.env` and fill in the values like this:
-    ```env
-    MONGODB_URI=mongodb_uri
-    ITSROSE_API_KEY=itsrose_apikey
-    OPENAI_API_KEY=openai_apikey
-    ```
-3. Edit `config.js` and fill in the values
-4. Enjoy
-
 ## Writing OpenAI plugin
 1. Create a file named `plugin_name.js` in `functions/Classy/plugins` folder
 2. Edit `plugin_name.js` and fill in the values like this:
@@ -50,20 +44,18 @@ npm start
 
     export default function name() {
 		name: "plugin_name",
-        description: "plugin_description",
-        parameters: {
-          type: "object",
-          properties: {
-            "parameter_name": {
-              type: "string",
-              description: "parameter_description"
-            }
-          },
-          required: ["parameter_name"]
+		description: "plugin_description",
+		parameters: {
+			type: "object",
+			properties: {
+				parameter_name: {
+					type: "string",
+					description: "parameter_description"
+				}
+			},
+			required: ["parameter_name"]
         }
         execute: function (m, params) {
-			// example
-
 			// execute the module
         	const result = module(params.parameter_name);
 
