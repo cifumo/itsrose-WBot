@@ -75,19 +75,24 @@ npm start
           	return {
             	type: "text", // type
             	response: {
-					// this will the information about the image
+					// this is the information 
+					// about the text
 					// so OPENAI use it.
 					content: result
 				}
           	};
-			// if you want to send message as image, use this
+			// if you want to send message as image/video, use this
 		  	return {
 				type: "image", // type
+
+				// sending image as url
 				image: {
 					url: "image_url"
 				},
+				// image: Buffer.from("image_buffer"),
 				response: {
-					// this will the information about the image
+					// this is the information
+					// about the image
 					// so OPENAI use it.
 					content: "Here you image"
 				}
@@ -101,7 +106,13 @@ npm start
 1. Create a file named `plugin_name.js` in `plugins` folder
 2. Edit `plugin_name.js` and fill in the values like this:
    ```js
-	const handler = async (m, { usedPrefix, plugins }) => {
+	const handler = async (m, { 
+		conn, 
+		text, 
+		args, 
+		usedPrefix, 
+		plugins 
+	}) => {
 		// your code here
 	};
 
@@ -117,6 +128,7 @@ npm start
 ## Expanding
 1. Edit file in `case/index.js`
 2. Fill what you want to do
+3. Edit `config.js` and set `use_case` to `true`
 
 ## Disclaimer
 - I'm not responsible for any misuse of this bot.
