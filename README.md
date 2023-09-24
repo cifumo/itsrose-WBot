@@ -1,26 +1,12 @@
 # itsrose-WBot
 Danil Elistzakov's
 
-## Features
-I assume you know what this bot is for, so I won't explain it here.
-The main feautures are:
-- [x] Device information
-  - if you say ping, or "show me the cpu model", it will show it. Anything that related to device information, it will show you the device information.
-- [x] Chat
-  - if you say "hi", it will say "hi" back. haha.
-- [x] Stable diffusion
-  - if you say "I wanna see mountain", it will send you the mountain image.
-- [x] Convert image
-  - if you say "convert image using anime style", it will convert the image into anime. You'll need to send the image first, with caption "convert image using anime style".
-- [ ] Others
-  - I will add more features soon.
-
 ## Advantages
 - [x] OpenAI
   - I use openai to make this bot more intelligent.
   - Sometimes the openai API will give you rate limit error, so you need to wait for a few minutes. Otherwise, pay for the API.
 - [ ] MongoDB
-  - Iwant to use mongodb to store the data, but idk.
+  - I want to use mongodb to store the data, but idk.
 
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/)
@@ -55,6 +41,82 @@ npm start
     ```
 3. Edit `config.js` and fill in the values
 4. Enjoy
+
+## Writing OpenAI plugin
+1. Create a file named `plugin_name.js` in `functions/Classy/plugins` folder
+2. Edit `plugin_name.js` and fill in the values like this:
+    ```js
+    import module from "your_module.js";
+
+    export default function name() {
+		name: "plugin_name",
+        description: "plugin_description",
+        parameters: {
+          type: "object",
+          properties: {
+            "parameter_name": {
+              type: "string",
+              description: "parameter_description"
+            }
+          },
+          required: ["parameter_name"]
+        }
+        execute: function (m, params) {
+			// example
+
+			// execute the module
+        	const result = module(params.parameter_name);
+
+          	// return the result as object
+			// so the bot can send the message
+			// is using baileys API
+
+			// if you want to send message as text, use this
+          	return {
+            	type: "text", // type
+            	response: {
+					// this will the information about the image
+					// so OPENAI use it.
+					content: result
+				}
+          	};
+			// if you want to send message as image, use this
+		  	return {
+				type: "image", // type
+				image: {
+					url: "image_url"
+				},
+				response: {
+					// this will the information about the image
+					// so OPENAI use it.
+					content: "Here you image"
+				}
+		  	};
+        }
+    }
+    ```
+3. See more information about OpenAI function [here](https://platform.openai.com/docs/guides/gpt/function-calling)
+
+## Writing Plugin
+1. Create a file named `plugin_name.js` in `plugins` folder
+2. Edit `plugin_name.js` and fill in the values like this:
+   ```js
+	const handler = async (m, { usedPrefix, plugins }) => {
+		// your code here
+	};
+
+	// same as like games-wabot
+	handler.command = ["menu", "help", "start"];
+	handler.tags = ["main"];
+	handler.help = ["menu", "help", "start"];
+
+	export default handler;
+	``` 
+3. Is it same as like [games-wabot](https://github.com/BochilGaming/games-wabot/tree/multi-device)? Yes, it is. 
+
+## Expanding
+1. Edit file in `case/index.js`
+2. Fill what you want to do
 
 ## Disclaimer
 - I'm not responsible for any misuse of this bot.

@@ -55,7 +55,7 @@ export class Rosie extends Lisa {
 		}
 	}
 	async ai(m, sock) {
-		if (!this.plugins_loaded || !this.function_loaded || !this.database_loaded) {
+		if (!this.plugins_loaded || !this.function_loaded || !this.database_loaded || !m.text) {
 			return;
 		}
 		if (this._onProcess[m.sender] || this.plugin_call) {
