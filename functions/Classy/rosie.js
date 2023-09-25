@@ -7,13 +7,6 @@ export class Rosie extends Lisa {
 		this._plugin_folder = plugin_folder;
 		this.plugin_call = false;
 	}
-	async create_request(options) {
-		return await this.openai.chat.completions
-			.create({
-				...options,
-			})
-			.catch((e) => ({ error: true, ...e }));
-	}
 	async call_plugin(m, context, contexts) {
 		const { name, arguments: args } = contexts.function_call;
 		let opts;
@@ -32,7 +25,7 @@ export class Rosie extends Lisa {
 		const additional = this.force_string(name, _response.response);
 		context.messages.push(additional);
 		const response = await this.create_request(context);
-		console.debug("Response:", response);
+		console.debug("Response from plugin:", JSON.stringify(response));
 		if (response.error) {
 			return this.error_response(m);
 		}
@@ -43,7 +36,7 @@ export class Rosie extends Lisa {
 		if (jid in this._queue) {
 			const context = this.create_context(m);
 			const response = await this.create_request(context);
-			console.debug("Response:", response);
+			console.debug("Response from AI:", response);
 			if (response.error) {
 				return this.error_response(m);
 			}
@@ -55,7 +48,12 @@ export class Rosie extends Lisa {
 		}
 	}
 	async ai(m, sock) {
-		if (!this.plugins_loaded || !this.function_loaded || !this.database_loaded || !m.text) {
+		if (
+			!this.plugins_loaded ||
+			!this.function_loaded ||
+			!this.database_loaded ||
+			!m.text
+		) {
 			return;
 		}
 		if (this._onProcess[m.sender] || this.plugin_call) {
@@ -69,7 +67,7 @@ export class Rosie extends Lisa {
 		console.debug("Processing message from:", jid);
 		await this.process(m);
 		if (this._queue[jid].clear) {
-			console.debug("Clearing message from:", jid);
+			console.debug("Failed to process message from:", jid);
 			this.clear(m);
 		} else {
 			console.debug("Sending message to", jid);

@@ -38,7 +38,7 @@ export default function stable_diffusion() {
 		},
 		execute: async function (m, params) {
 			const { prompt, style } = params;
-			const { data } = await Api.axios.request({
+			const { data } = await Api.request({
 				url: "/image/diffusion",
 				method: "POST",
 				data: {
@@ -53,7 +53,7 @@ export default function stable_diffusion() {
 					image_num: 1,
 					steps: 25,
 				},
-			});
+			}).catch((e) => e?.response);
 			const { status, result, message } = data;
 			if (!status) {
 				return {

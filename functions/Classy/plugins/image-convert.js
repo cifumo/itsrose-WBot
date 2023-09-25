@@ -76,7 +76,7 @@ export default function image_convert() {
 			const formData = new FormData();
 			const blob = new Blob([imageBuffer], { type: "image/jpg" });
 			formData.append("file", blob, "image.jpg");
-			const { data } = await Api.axios.request({
+			const { data } = await Api.request({
 				url: "/image/differentMe",
 				method: "POST",
 				params: {
@@ -84,7 +84,7 @@ export default function image_convert() {
 					json: true,
 				},
 				data: formData,
-			});
+			}).catch((e) => e?.response);
 			const { status, result, message } = data;
 			if (!status) {
 				return {

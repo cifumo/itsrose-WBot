@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import syntaxError from "syntax-error";
 import os from "os";
-import { Extras } from "./Extras.js";
+import { Extras } from "./extras.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -13,26 +13,24 @@ export class Lisa extends Extras {
 		this.plugins = {};
 		this.function_loaded = false;
 		this.plugins_loaded = false;
-		this._plugin_filter = (file) => /\.(mc)?js$/.test(file);
 		this._watcher = {};
 	}
-	delete_plugin_folder(folder, isAlreadyClosed = false) {
-		const resolved = path.resolve(folder);
-		if (!(resolved in this._watcher)) {
-			return;
+	async call(name, m, opts) {
+		if (typeof name !== "string") {
+			throw new TypeError("Name must be a string");
 		}
-		if (!isAlreadyClosed) {
-			this._plugin_folder._watcher[resolved].close();
+		if (!this.functions[name]) {
+			throw new TypeError("Function does not exist");
 		}
-		delete this._watcher[resolved];
-		this._plugin_folder.splice(this._plugin_folder.indexOf(resolved), 1);
+		return this.functions[name](m, opts, this);
 	}
 	async import(file) {
 		const module = await import(`${file}?cacheBust=${Date.now()}`);
 		return module.default || module;
 	}
 	async load_functions() {
-		for (const file of fs.readdirSync(path.join(__dirname, "plugins"))) {
+		const path_folder = path.join(__dirname, "plugins");
+		for (const file of fs.readdirSync(path_folder)) {
 			try {
 				const { default: plugin } = await import(`./plugins/${file}`);
 				const _plugin = await plugin();
@@ -43,6 +41,36 @@ export class Lisa extends Extras {
 			}
 		}
 		this.function_loaded = true;
+		console.debug("Functions:", Object.keys(this.functions));
+	}
+	async watch_functions(_ev, filename) {
+		const name = filename.replace(/\.js$/, "");
+		const pathFile = path.join(__dirname, "plugins", filename);
+		if (name in this.functions) {
+			if (fs.existsSync(pathFile)) {
+				console.debug(`Plugin ${filename} has been updated`);
+			} else {
+				delete this.functions[name];
+				return console.debug(`Plugin ${filename} has been deleted`);
+			}
+		}
+		const error = syntaxError(fs.readFileSync(pathFile, "utf8"), filename, {
+			sourceType: "module",
+		});
+		if (error) {
+			console.error(`Failed to load plugin ${filename}:`, error);
+			return;
+		}
+		const plugin = await this.import(pathFile);
+		const _plugin = await plugin();
+		this.indexs.push({ ..._plugin.filter((i) => i !== "execute") });
+		this.functions[_plugin.name] = _plugin.execute;
+		console.debug(`Plugin ${filename} has been loaded`);
+		const watch = fs.watch(pathFile, this.watch_functions.bind(this));
+		watch.on("close", () => {
+			this.delete_plugin_folder(pathFile, true);
+		});
+		this._watcher[pathFile] = watch;
 	}
 	async load_plugins() {
 		console.debug("Loading plugins...");
@@ -104,7 +132,13 @@ export class Lisa extends Extras {
 			console.error(`Failed to load plugin ${filename}:`, error);
 			return;
 		}
-		const plugin = await this.import(pathFile);
+		const plugin = await this.import(pathFile).catch((e) => {
+			console.error(`Failed to load plugin ${filename}:`, e);
+			return { error: e };
+		});
+		if (plugin.error) {
+			return;
+		}
 		this.plugins[name] = plugin;
 		console.debug(`Plugin ${filename} has been loaded`);
 	}

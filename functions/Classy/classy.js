@@ -108,4 +108,14 @@ export class Classy extends Jammy {
 		}
 		this._onProcess[jid] = false;
 	}
+	logger(m) {
+		const jid = m.sender;
+		const number = jid.replace(/[^0-9]/g, "");
+		const name = m.name;
+		const text = m.text;
+		const date = this._date();
+		const clock = this._clock();
+		const log = `[${date} ${clock}] ${number} ${name}: ${text}`;
+		console.log(log);
+	}
 }

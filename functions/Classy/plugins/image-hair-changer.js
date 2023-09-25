@@ -61,8 +61,8 @@ export default function image_hair_changer() {
 			const imageBuffer = await q.download();
 			const formData = new FormData();
 			const blob = new Blob([imageBuffer], { type: "image/jpg" });
-			formData.append("file", blob, "image.jpg");
-			const { data } = await Api.axios.request({
+			formData.append("file", blob, "image.jpg"); 
+			const { data } = await Api.request({
 				url: "/image/differentMe",
 				method: "POST",
 				params: {
@@ -70,7 +70,7 @@ export default function image_hair_changer() {
 					json: true,
 				},
 				data: formData,
-			});
+			}).catch((e) => e?.response);
 			const { status, result, message } = data;
 			if (!status) {
 				return {

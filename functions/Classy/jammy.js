@@ -1,12 +1,30 @@
-import OpenAI from "./API/index.js";
+import { Api } from "./API/index.js";
 import config from "../../config.js";
 
-export class Jammy extends OpenAI {
+export class Jammy extends Api {
 	constructor() {
 		super(...arguments);
 		this.real_time = config.openAI.real_time;
 		this.timeZone = config.openAI.timeZone;
 		this.system_content = config.openAI.system_content;
+	}
+	_date() {
+		return new Date().toLocaleString("en-US", {
+			day: "numeric",
+			month: "long",
+			year: "numeric",
+			weekday: "long",
+			timezone: this.timeZone || "Asia/Jakarta",
+		});
+	}
+	_clock() {
+		return new Date().toLocaleString("en-us", {
+			timeZone: this.timeZone || "Asia/Jakarta",
+			hour12: false,
+			hour: "numeric",
+			minute: "numeric",
+			second: "numeric",
+		});
 	}
 	_model() {
 		return { model: "gpt-3.5-turbo" };
@@ -22,21 +40,9 @@ export class Jammy extends OpenAI {
 	}
 	_system(content = "Act like girl named 'rose'", role = "system") {
 		if (this.real_time) {
-			const date = new Date().toLocaleString("en-US", {
-				day: "numeric",
-				month: "long",
-				year: "numeric",
-				weekday: "long",
-				timezone: this.timeZone || "Asia/Jakarta",
-			});
-			const clock = new Date().toLocaleString("en-us", {
-				timeZone: this.timeZone || "Asia/Jakarta",
-				hour12: false,
-				hour: "numeric",
-				minute: "numeric",
-				second: "numeric",
-			});
-			content = `${this.system_content}. Today is ${date}. Now is ${clock}.`;
+			content = `${
+				this.system_content
+			}. Today is ${this._date()}. Now is ${this._clock()}.`;
 		}
 		return {
 			role,

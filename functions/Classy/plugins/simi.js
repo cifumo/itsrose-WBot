@@ -34,7 +34,7 @@ export default function simi() {
 					lc,
 					level,
 				},
-			});
+			}).catch((e) => e?.response);
 			const { status, result, message } = data;
 			if (!status) {
 				return {
