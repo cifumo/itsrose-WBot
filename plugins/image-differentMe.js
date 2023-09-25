@@ -1,4 +1,4 @@
-import instance from "../lib/itsrose.life.js";
+import itsrose from "../lib/itsrose.life.js";
 
 const handler = async (m, { conn, usedPrefix, command, args }) => {
 	const [style = "anime"] = args;
@@ -18,7 +18,7 @@ const handler = async (m, { conn, usedPrefix, command, args }) => {
 		type: "image/jpeg",
 	});
 	form.append("file", blob, "image.jpg");
-	const { status, result, message } = await instance.request({
+	const { status, result, message } = await itsrose.request({
 		url: "/image/differentMe",
 		method: "POST",
 		params: {
