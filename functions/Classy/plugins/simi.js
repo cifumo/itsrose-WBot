@@ -26,7 +26,7 @@ export default function simi() {
 		},
 		execute: async function (m, params) {
 			const { message: msg, lc, level } = params;
-			const { data } = await Api.axios.request({
+			const { data } = await Api.request({
 				url: "/others/simi",
 				method: "GET",
 				params: {

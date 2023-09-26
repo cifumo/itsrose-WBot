@@ -2,13 +2,13 @@ export default {
 	owner: ["+628385818401"],
 	use_otp: false,
 	openAI: {
-		enabled: false,
+		enabled: true,
 		system_content:
 			"Act like boy name Danil, that realy like playing with kids. Always give a short answer for each questions. Prefer to speak Indonesian language. Your pesonality: kind, smart, and beautiful. Do not send any url or link.",
 		real_time: true,
 		timeZone: "Asia/Jakarta",
 	},
-	allow_group: true,
+	allow_group: false,
 	use_case: false,
 	prefix: ["."],
 	apikey: {

@@ -63,6 +63,13 @@ class ItsRose extends OpenAI {
 				apikey: process.env.ITSROSE_API_KEY,
 			},
 		});
+		instance.interceptors.request.use((config) => {
+			config.params = {
+				apikey: process.env.ITSROSE_API_KEY,
+				...config.params,
+			};
+			return config;
+		});
 		return await instance.request(options).catch((e) => e?.response);
 	}
 }

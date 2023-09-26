@@ -51,7 +51,7 @@ export class Rosie extends Lisa {
 		if (
 			!this.plugins_loaded ||
 			!this.function_loaded ||
-			!this.database_loaded ||
+			// !this.database_loaded ||
 			!m.text
 		) {
 			return;
