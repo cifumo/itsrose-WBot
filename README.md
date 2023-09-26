@@ -53,55 +53,55 @@ npm start
    ```js
    import module from "your_module.js";
 
-    export default function name() {
-        name: "plugin_name",
-        description: "plugin_description",
-        parameters: {
-            type: "object",
-            properties: {
-                parameter_name: {
-                    type: "string",
-                    description: "parameter_description"
-                }
-            },
-            required: ["parameter_name"]
-        }
-        execute: function(m, params) {
-            // execute the module
-            const result = module(params.parameter_name);
+   export default function name() {
+      name: "plugin_name",
+      description: "plugin_description",
+      parameters: {
+          type: "object",
+          properties: {
+              parameter_name: {
+                  type: "string",
+                  description: "parameter_description"
+              }
+          },
+          required: ["parameter_name"]
+      }
+      execute: function(m, params) {
+          // execute the module
+          const result = module(params.parameter_name);
 
-   
-            // return the result as object
-            // so the bot can send the message
-            // is using baileys API
-    
-            // if you want to send message as text, use this
-            return {
-                type: "text", // type
-                response: {
-                    // this is the information
-                    // about the text
-                    // so OPENAI use it.
-                    content: result
-                }
-            };
-            // if you want to send message as image/video, use this
-            return {
-                type: "image", // type
-                // sending image as url
-                image: {
-                    url: "image_url"
-                },
-                // image: Buffer.from("image_buffer"),
-                response: {
-                    // this is the information
-                    // about the image
-                    // so OPENAI use it.
-                    content: "Here you image"
-                }
-            };
-        }
-    }
+ 
+          // return the result as object
+          // so the bot can send the message
+          // is using baileys API
+  
+          // if you want to send message as text, use this
+          return {
+              type: "text", // type
+              response: {
+                  // this is the information
+                  // about the text
+                  // so OPENAI use it.
+                  content: result
+              }
+          };
+          // if you want to send message as image/video, use this
+          return {
+              type: "image", // type
+              // sending image as url
+              image: {
+                  url: "image_url"
+              },
+              // image: Buffer.from("image_buffer"),
+              response: {
+                  // this is the information
+                  // about the image
+                  // so OPENAI use it.
+                  content: "Here you image"
+              }
+          };
+      }
+   }
    ```
 
 3. See more information about OpenAI function [here](https://platform.openai.com/docs/guides/gpt/function-calling)
@@ -116,9 +116,9 @@ npm start
      // your code here
    };
 
-   handler.command = ["menu", "help", "start"];
-   handler.tags = ["main"];
-   handler.help = ["menu", "help", "start"];
+   handler.command = ["command"];
+   handler.tags = ["tags"];
+   handler.help = ["help"];
 
    export default handler;
    ```
