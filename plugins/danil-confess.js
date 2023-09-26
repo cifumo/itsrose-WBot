@@ -3,7 +3,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 	if (!number || !reason) {
 		return m.reply(`Example: *${usedPrefix + command}* 6281234567890|Reason`);
 	}
-	const [isOnWhatsapp = { exists: false }] = await conn.isOnWhatsApp(number);
+	const [isOnWhatsapp = { exists: false }] = await conn.onWhatsApp(number);
 	if (!isOnWhatsapp.exists) {
 		return m.reply("The number is not registered on WhatsApp");
 	}
