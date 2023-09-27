@@ -127,56 +127,46 @@ npm start
 
 ## Expanding
 
+If you have `base code` that using something you call `case` and you want to use it in this source code, you can do this:
+
 1. Edit file in `case/index.js`
 2. Fill what you want to do
 3. Edit `config.js` and set `use_case` to `true`
 
+But remember, the `base code` must be using `Baileys` API.
+
+Advantages:
+- The code in `case/index.js` will be executed before the plugin is executed.
+- If the command is same in `plugin` and `case/index.js`, the `case/index.js` will be executed first.
+
+I recommend to migrate your `base code` to the way plugins are written.
 ## Disclaimer
 
-- I'm not responsible for any misuse of this bot.
-- I'm not responsible for any damage caused by this bot.
-- I'm not responsible for any damage caused by the API.
-- I'm not responsible for any damage caused by the dependencies.
-- I'm not responsible for any damage caused by the code.
-- I'm not responsible for any damage caused by the user.
-- I'm not responsible for any damage caused by the user's device.
-- I'm not responsible for any damage caused by the user's network.
-- I'm not responsible for any damage caused by the user's internet connection.
-- I'm not responsible for any damage caused by the user's electricity.
-- I'm not responsible for any damage caused by the user's house.
-- I'm not responsible for any damage caused by the user's country.
-- I'm not responsible for any damage caused by the user's planet.
-- I'm not responsible for any damage caused by the user's solar system.
-- I'm not responsible for any damage caused by the user's galaxy.
-- I'm not responsible for any damage caused by the user's universe.
-- I'm not responsible for any damage caused by the user's multiverse.
-- I'm not responsible for any damage caused by the user's omniverse.
-- I'm not responsible for any damage caused by the user's metaverse.
-- Don't use this bot source code for illegal purposes.
-- Don't sell this bot source code.
-- Don't sell this bot.
+This repository project is using other open source projects. No warranties are made as to the usability of the source code contained herein. Any use of this code is subject to an understanding that the code itself is not guaranteed to be fit for any particular purpose and the user is solely responsible for any repercussions of its use. No guarantee is given as to the accuracy or correctness of the results obtained from using the code in this repository. 
 
-## Support me by donating
+This repository project uses other open source projects, the authors or owners of which may have different license terms from the code contained in this repository. You should consult the individual license terms of those projects before using the code. 
 
-- [PayPal](https://paypal.me/xct007)
-- [Saweria](https://saweria.co/xct007)
-- [Trakteer](https://trakteer.id/xct007)
-- [KaryaKarsa](https://karyakarsa.com/xct007)
-- [Ko-fi](https://ko-fi.com/xct007)
-- [BuyMeACoffee](https://www.buymeacoffee.com/xct007)
-- [LiberaPay](https://liberapay.com/xct007)
-- [GitHub Sponsors](https://github.com/xct007)
-- [GitLab Sponsors](https://gitlab.com/xct007)
-- [Open Collective](https://opencollective.com/xct007)
-- [Patreon](https://patreon.com/xct007)
-- wkwk..
+The authors and maintainers of this repository project are not responsible for any damage or loss arising from the use of the code contained herein. Use the code at your own risk.
 
 ## Contributing
 
-1. Fork it 
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request 
-6. Star this repository 
-7. Follow me 
+You can contribute in many ways:
+```
+1. Report bugs
+2. Give suggestions
+3. Fork and make pull request
+```
+You can add more features, fix bugs, or anything else.
+
+## Thanks to
+
+- [Baileys](https://github.com/WhiskeySockets/Baileys)
+  - For the WhatsApp API.
+- [OpenAI](https://openai.com)
+  - For the AI API.
+- [games-wabot](https://github.com/BochilGaming/games-wabot/tree/multi-device)
+  - For the inspiration.
+- [itsrose](https://itsrose.life)
+  - For the API.
+- [Danil](danil.gay)
+  - For the inspiration.
