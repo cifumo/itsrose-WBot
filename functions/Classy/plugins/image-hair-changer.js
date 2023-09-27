@@ -53,6 +53,7 @@ export default function image_hair_changer() {
 				return {
 					type: "text",
 					response: {
+						status: "failed",
 						message: "You need to reply the image or send the image with caption",
 					},
 				};
@@ -61,7 +62,7 @@ export default function image_hair_changer() {
 			const imageBuffer = await q.download();
 			const formData = new FormData();
 			const blob = new Blob([imageBuffer], { type: "image/jpg" });
-			formData.append("file", blob, "image.jpg"); 
+			formData.append("file", blob, "image.jpg");
 			const { data } = await Api.request({
 				url: "/image/differentMe",
 				method: "POST",
@@ -76,7 +77,9 @@ export default function image_hair_changer() {
 				return {
 					type: "text",
 					response: {
+						status: "failed",
 						message,
+						tips: "Probably face not detected in image",
 					},
 				};
 			}
@@ -85,7 +88,8 @@ export default function image_hair_changer() {
 				image: Buffer.from(result["base64Image"], "base64"),
 				response: {
 					content: "Success!",
-					message: "Success converting image to " + style + " style",
+					message: "Success change hair in image",
+					hair_id,
 				},
 			};
 		},

@@ -70,8 +70,9 @@ export default function stable_diffusion() {
 					url,
 				},
 				response: {
-					content: "Success!",
+					content: "Here your image!",
 					message: "Image generated successfully!",
+					url,
 				},
 			};
 		},

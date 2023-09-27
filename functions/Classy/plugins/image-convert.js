@@ -67,6 +67,7 @@ export default function image_convert() {
 				return {
 					type: "text",
 					response: {
+						status: "failed",
 						message: "You need to reply the image or send the image with caption",
 					},
 				};
@@ -90,6 +91,7 @@ export default function image_convert() {
 				return {
 					type: "text",
 					response: {
+						status: "failed",
 						message,
 					},
 				};
@@ -99,7 +101,8 @@ export default function image_convert() {
 				image: Buffer.from(result["base64Image"], "base64"),
 				response: {
 					content: "Success!",
-					message: "Success converting image to " + style + " style",
+					message: "Success converting image",
+					style,
 				},
 			};
 		},

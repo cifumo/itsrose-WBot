@@ -170,3 +170,13 @@ npm start
 - [Open Collective](https://opencollective.com/xct007)
 - [Patreon](https://patreon.com/xct007)
 - wkwk..
+
+## Contributing
+
+1. Fork it 
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request 
+6. Star this repository 
+7. Follow me 

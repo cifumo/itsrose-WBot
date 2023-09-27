@@ -25,7 +25,7 @@ export class Rosie extends Lisa {
 		const additional = this.force_string(name, _response.response);
 		context.messages.push(additional);
 		const response = await this.create_request(context);
-		console.debug("Response from plugin:", JSON.stringify(response));
+		console.debug("Response from plugin:", response);
 		if (response.error) {
 			return this.error_response(m);
 		}
