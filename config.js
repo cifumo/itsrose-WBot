@@ -1,6 +1,6 @@
 export default {
 	owner: ["+628385818401"],
-	use_otp: false,
+	use_otp: true,
 	openAI: {
 		enabled: true,
 		system_content:

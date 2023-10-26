@@ -30,7 +30,7 @@
 		"express": "^4.18.2",
 		"file-type": "^18.5.0",
 		"googlethis": "^1.8.0",
-		"jimp": "^0.22.10",
+		"jimp": "^0.16.1",
 		"lodash": "^4.17.21",
 		"lowdb": "3.0.0",
 		"mongoose": "^7.5.2",
